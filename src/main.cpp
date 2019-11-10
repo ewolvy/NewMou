@@ -23,14 +23,14 @@ void setup(){
   sensores.addSensor(TYPE_VL6180X, "Quinto", 0, 0);
  */
   pinesMotores.leftForward = LEFT_MOTOR_FWD_PIN;
-  pinesMotores.leftReverse = LEFT_MOTOR_REV_PIN;
+  // pinesMotores.leftReverse = LEFT_MOTOR_REV_PIN;
   pinesMotores.rightForward = RIGHT_MOTOR_FWD_PIN;
-  pinesMotores.rightReverse = RIGHT_MOTOR_REV_PIN;
+  // pinesMotores.rightReverse = RIGHT_MOTOR_REV_PIN;
 
   pinMode(pinesMotores.leftForward, OUTPUT);
-  pinMode(pinesMotores.leftReverse, OUTPUT);
+  // pinMode(pinesMotores.leftReverse, OUTPUT);
   pinMode(pinesMotores.rightForward, OUTPUT);
-  pinMode(pinesMotores.rightReverse, OUTPUT);
+  // pinMode(pinesMotores.rightReverse, OUTPUT);
 
   encoderLeft = new Encoder(LEFT_ENCODER_A_PIN, LEFT_ENCODER_B_PIN, &doEncoderLeft);
   encoderRight = new Encoder(RIGHT_ENCODER_A_PIN, RIGHT_ENCODER_B_PIN, &doEncoderRight);
@@ -41,26 +41,26 @@ void setup(){
 void loop(){
   // testMotores();
   // testEncoders();
-  digitalWrite(LEFT_MOTOR_FWD_PIN, 0);
-  digitalWrite(LEFT_MOTOR_REV_PIN, 0);
-  digitalWrite(RIGHT_MOTOR_FWD_PIN, 0);
-  digitalWrite(RIGHT_MOTOR_REV_PIN, 0);
-  delay(2000);
-  digitalWrite(LEFT_MOTOR_FWD_PIN, 1);
-  digitalWrite(LEFT_MOTOR_REV_PIN, 0);
-  digitalWrite(RIGHT_MOTOR_FWD_PIN, 1);
-  digitalWrite(RIGHT_MOTOR_REV_PIN, 0);
+  digitalWrite(LEFT_MOTOR_FWD_PIN, HIGH);
+  // digitalWrite(LEFT_MOTOR_REV_PIN, 0);
+  digitalWrite(RIGHT_MOTOR_FWD_PIN, HIGH);
+  // digitalWrite(RIGHT_MOTOR_REV_PIN, 0);
+  delay(5000);
+  digitalWrite(LEFT_MOTOR_FWD_PIN, LOW);
+  // digitalWrite(LEFT_MOTOR_REV_PIN, 0);
+  digitalWrite(RIGHT_MOTOR_FWD_PIN, LOW);
+  // digitalWrite(RIGHT_MOTOR_REV_PIN, 0);
   delay(1000);
-  digitalWrite(LEFT_MOTOR_FWD_PIN, 0);
-  digitalWrite(LEFT_MOTOR_REV_PIN, 0);
-  digitalWrite(RIGHT_MOTOR_FWD_PIN, 0);
-  digitalWrite(RIGHT_MOTOR_REV_PIN, 0);
-  delay(1000);
-  digitalWrite(LEFT_MOTOR_FWD_PIN, 0);
-  digitalWrite(LEFT_MOTOR_REV_PIN, 1);
-  digitalWrite(RIGHT_MOTOR_FWD_PIN, 0);
-  digitalWrite(RIGHT_MOTOR_REV_PIN, 1);
-  delay(1000);
+  // digitalWrite(LEFT_MOTOR_FWD_PIN, 0);
+  // // digitalWrite(LEFT_MOTOR_REV_PIN, 0);
+  // digitalWrite(RIGHT_MOTOR_FWD_PIN, 0);
+  // // digitalWrite(RIGHT_MOTOR_REV_PIN, 0);
+  // delay(1000);
+  // digitalWrite(LEFT_MOTOR_FWD_PIN, 0);
+  // digitalWrite(LEFT_MOTOR_REV_PIN, 1);
+  // digitalWrite(RIGHT_MOTOR_FWD_PIN, 0);
+  // digitalWrite(RIGHT_MOTOR_REV_PIN, 1);
+  // delay(1000);
 }
 
 void testEncoders(){

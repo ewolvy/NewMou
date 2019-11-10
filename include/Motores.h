@@ -1,4 +1,4 @@
-/*
+ /*
 Clase que se encargará del movimiento de los motores y el posicionamiento dentro
 de la casilla a medida que avanza. NO se encargará de saber en qué casilla está.
 Al crear el objeto hay que pasarle los parámetros de modo, los pines para controlar

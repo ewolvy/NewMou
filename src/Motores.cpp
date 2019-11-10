@@ -23,14 +23,11 @@ Motores::Motores(byte mode,
 
 void Motores::moveLeftMotor (int speed){
   if (speed == 0) {
-    ledcWrite(myPines.leftReverse, 0);
-    ledcWrite(myPines.leftForward, 0);  
-  } else if (speed > 0) {
-    ledcWrite(myPines.leftReverse, 0);
-    ledcWrite(myPines.leftForward, speed);
+    // ledcWrite(myPines.leftReverse, 0);
+    ledcWrite(myPines.leftForward, HIGH);  
   } else {
-    ledcWrite(myPines.leftReverse, speed*(-1));
-    ledcWrite(myPines.leftForward, 0);
+    // ledcWrite(myPines.leftReverse, 0);
+    ledcWrite(myPines.leftForward, 255 - speed);
   }
   Serial.print("Pin izquierdo adelante: ");
   Serial.println(myPines.leftForward);
@@ -40,14 +37,11 @@ void Motores::moveLeftMotor (int speed){
 
 void Motores::moveRightMotor (int speed){
   if (speed == 0){
-    ledcWrite(myPines.rightReverse, 0);
-    ledcWrite(myPines.rightForward, 0);
-  } else if (speed > 0) {
-    ledcWrite(myPines.rightReverse, 0);
-    ledcWrite(myPines.rightForward, speed);
+    // ledcWrite(myPines.rightReverse, 0);
+    ledcWrite(myPines.rightForward, HIGH);
   } else {
-    ledcWrite(myPines.rightReverse, speed*(-1));
-    ledcWrite(myPines.rightForward, 0);
+    // ledcWrite(myPines.rightReverse, 0);
+    ledcWrite(myPines.rightForward, 255 - speed);
   }
   Serial.print("Pin derecho adelante: ");
   Serial.println(myPines.rightForward);
@@ -104,8 +98,8 @@ void Motores::avanza (byte casillas){
     case VUELTA_A_CASA:
       break;
     case TESTEO:
-      moveLeftMotor(210); //70
-      moveRightMotor(210); //55
+      moveLeftMotor(70); //70
+      moveRightMotor(70); //55
       delay(775 * casillas);
       fullStop (); 
       delay (500);
@@ -423,7 +417,9 @@ void Motores::gira180 (){
 }
 
 void Motores::fullStop (){
-  moveLeftMotor(0); 
-  moveRightMotor(0);
+  // moveLeftMotor(0); 
+  // moveRightMotor(0);
+  digitalWrite(myPines.leftForward, HIGH);
+  digitalWrite(myPines.rightForward, HIGH);
   Serial.println("fullStop()");
 }
