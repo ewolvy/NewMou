@@ -16,6 +16,7 @@ boolean Sensores::addSensor(const uint8_t type, const char name[], const uint8_t
       if (vl6180x_count == MAX_SENSORES - 1) return false;
       vl6180x[vl6180x_count] = VL6180X();
       strcpy(vl6180x_names[vl6180x_count], name);
+      initializeVL6180X(&vl6180x[vl6180x_count], address, pin);
       vl6180x_count++;
       break;
   }
@@ -49,12 +50,13 @@ void Sensores::initializeVL53L0X(Adafruit_VL53L0X *sensor, const uint8_t address
 }
 
 void Sensores::initializeVL6180X(VL6180X *sensor, const uint8_t address, const uint8_t pin){
-  pinMode(pin, OUTPUT);
-  digitalWrite(pin, HIGH);
-  delay(DELAY_ARRANQUE_SENSOR);
+  if (pin != 0){
+    digitalWrite(pin, HIGH);
+    delay(DELAY_ARRANQUE_SENSOR);
+  }
   sensor->init();
-  sensor->setAddress(address);
   sensor->configureDefault();
+  sensor->setAddress(address);
   sensor->setTimeout(500);
   delay(DELAY_ARRANQUE_SENSOR);
 }

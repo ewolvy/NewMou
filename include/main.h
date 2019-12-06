@@ -4,6 +4,7 @@
   // #include "BluetoothSerial.h"
 
   // BluetoothSerial BTSerial;
+  void testSensores();
   void testEncoders();
   void testMotores();
   void doEncoderLeft();

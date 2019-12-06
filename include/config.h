@@ -17,7 +17,7 @@
   #define OLED_SCL 15  // Hardware I2C does NOT work!  RMB
   #define OLED_RST 16
  */  
-  #define BAUD_RATE 115200  // Serial baud rate
+  #define BAUD_RATE 9600  // Serial baud rate
 
   #define LEFT_ENCODER_A_PIN 17  //este es el que genera la interrupción
   #define LEFT_ENCODER_B_PIN 16 
