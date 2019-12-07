@@ -18,15 +18,17 @@ void setup(){
 
   pinMode(ENABLE_SENSOR_FRONTAL_DERECHA, OUTPUT);
   pinMode(ENABLE_SENSOR_FRONTAL_IZQUIERDA, OUTPUT);
+  pinMode(ENABLE_SENSOR_LATERAL_DERECHO, OUTPUT);
   digitalWrite(ENABLE_SENSOR_FRONTAL_DERECHA, LOW);
   digitalWrite(ENABLE_SENSOR_FRONTAL_IZQUIERDA, LOW);
+  digitalWrite(ENABLE_SENSOR_LATERAL_DERECHO, LOW);
 
   Wire.begin();
 
   sensores.addSensor(TYPE_VL6180X, "Lateral izquierdo", 0x50, 0);
   sensores.addSensor(TYPE_VL6180X, "Frontal derecho", 0x51, ENABLE_SENSOR_FRONTAL_DERECHA);
   sensores.addSensor(TYPE_VL6180X, "Frontal izquierdo", 0x52, ENABLE_SENSOR_FRONTAL_IZQUIERDA);
-  // sensores.addSensor(TYPE_VL6180X, "Cuarto", 0x53, 0);
+  sensores.addSensor(TYPE_VL6180X, "Lateral derecho", 0x53, ENABLE_SENSOR_LATERAL_DERECHO);
 
   // pinesMotores.leftForward = LEFT_MOTOR_FWD_PIN;
   // pinesMotores.leftReverse = LEFT_MOTOR_REV_PIN;
@@ -74,9 +76,9 @@ void testSensores(){
   if (sensores.getVL6180XSensor("Frontal izquierdo") != NULL){
     Serial.println(sensores.getDistance("Frontal izquierdo"));
   }
-  // if (sensores.getVL6180XSensor("Cuarto") != NULL){
-  //   Serial.println("Cuarta prueba OK");
-  // }
+  if (sensores.getVL6180XSensor("Lateral derecho") != NULL){
+    Serial.println(sensores.getDistance("Lateral derecho"));
+  }
   Serial.println();
 }
 
