@@ -6,7 +6,6 @@
   // BluetoothSerial BTSerial;
   void testSensores();
   void testEncoders();
-  void testMotores();
   void doEncoderLeft();
   void doEncoderRight();
 #endif
