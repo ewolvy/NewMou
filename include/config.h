@@ -3,11 +3,11 @@
 
   //definicion del hardware tanto pines y dimensiones
 
-  #define ENABLE_SENSOR_LATERAL_DERECHO 18
+  // #define ENABLE_SENSOR_LATERAL_DERECHO 19
+  // #define ENABLE_SENSOR_LATERAL_IZQUIERDA 27
   #define ENABLE_SENSOR_FRONTAL_DERECHA 13
   #define ENABLE_SENSOR_FRONTAL_IZQUIERDA 14
-  #define ENABLE_SENSOR_DIAGONAL_DERECHA 19
-  #define ENABLE_SENSOR_DIAGONAL_IZQUIERDA 27
+  #define ENABLE_SENSOR_DIAGONAL_DERECHA 18
   #define DELAY_ARRANQUE_SENSOR 500
 
   #define SENSOR_SDA 21 
@@ -27,10 +27,10 @@
   #define FRECUENCIA_PWM 31250  //frecuencia de los pwm del arduino nano
   #define RESOLUCION_N_BITS_PWM 8
 
-  // #define LEFT_MOTOR_REV_PIN 26
-  #define LEFT_MOTOR_FWD_PIN 25
+  #define LEFT_MOTOR_REV_PIN 26
+  #define LEFT_MOTOR_FWD_PIN 27
 
-  // #define RIGHT_MOTOR_REV_PIN 36
+  #define RIGHT_MOTOR_REV_PIN 25
   #define RIGHT_MOTOR_FWD_PIN 12
 
   #define LEFT_MOTOR_REV_CH 0
