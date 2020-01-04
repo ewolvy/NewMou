@@ -1,7 +1,7 @@
 #include "Sensores.h"
 #include <SPI.h>
 #include "VL6180X.h"
-#include "Adafruit_VL53L0X.h"
+// #include "Adafruit_VL53L0X.h"
 
 boolean Sensores::addSensor(const uint8_t type, const char name[], const uint8_t address, const uint8_t pin){
   switch(type){

@@ -2,29 +2,29 @@
 #include "tests.h"
 #include "Motores.h"
 
-void testBasicoMotores(PinesMotores pinesMotores){
+void testBasicoMotores(PinesMotores *pinesMotores){
   // Poner ambos motores hacia alante
-  digitalWrite(pinesMotores.leftForward, 1);
-  digitalWrite(pinesMotores.leftReverse, 0);
-  digitalWrite(pinesMotores.rightForward, 1);
-  digitalWrite(pinesMotores.rightReverse, 0);
+  digitalWrite(pinesMotores->leftForward, 1);
+  digitalWrite(pinesMotores->leftReverse, 0);
+  digitalWrite(pinesMotores->rightForward, 1);
+  digitalWrite(pinesMotores->rightReverse, 0);
   delay(1000);
-  digitalWrite(pinesMotores.leftForward, 0);
-  digitalWrite(pinesMotores.leftReverse, 0);
-  digitalWrite(pinesMotores.rightForward, 0);
-  digitalWrite(pinesMotores.rightReverse, 0);
+  digitalWrite(pinesMotores->leftForward, 0);
+  digitalWrite(pinesMotores->leftReverse, 0);
+  digitalWrite(pinesMotores->rightForward, 0);
+  digitalWrite(pinesMotores->rightReverse, 0);
   delay(1000);
 
   // Poner ambos motores hacia atrás
-  digitalWrite(pinesMotores.leftForward, 0);
-  digitalWrite(pinesMotores.leftReverse, 1);
-  digitalWrite(pinesMotores.rightForward, 0);
-  digitalWrite(pinesMotores.rightReverse, 1);
+  digitalWrite(pinesMotores->leftForward, 0);
+  digitalWrite(pinesMotores->leftReverse, 1);
+  digitalWrite(pinesMotores->rightForward, 0);
+  digitalWrite(pinesMotores->rightReverse, 1);
   delay(1000);
-  digitalWrite(pinesMotores.leftForward, 0);
-  digitalWrite(pinesMotores.leftReverse, 0);
-  digitalWrite(pinesMotores.rightForward, 0);
-  digitalWrite(pinesMotores.rightReverse, 0);
+  digitalWrite(pinesMotores->leftForward, 0);
+  digitalWrite(pinesMotores->leftReverse, 0);
+  digitalWrite(pinesMotores->rightForward, 0);
+  digitalWrite(pinesMotores->rightReverse, 0);
 }
 
 void testSensores(Sensores *sensores){

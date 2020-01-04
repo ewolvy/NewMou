@@ -18,6 +18,21 @@ void setup(){
   // BTSerial.begin("Mousito01BT");
   Serial.begin(BAUD_RATE);
 
+  setupSensores();
+  setupEncoders();
+  setupMotores();
+}
+
+void loop(){
+
+  // testSensores(&sensores);
+  // testBasicoMotores(&pinesMotores);
+  // testEncoders(encoderRight, encoderLeft);
+
+  delay(1000);
+}
+
+void setupSensores(){
   pinMode(ENABLE_SENSOR_FRONTAL_DERECHA, OUTPUT);
   pinMode(ENABLE_SENSOR_FRONTAL_IZQUIERDA, OUTPUT);
   pinMode(ENABLE_SENSOR_DIAGONAL_DERECHA, OUTPUT);
@@ -31,7 +46,14 @@ void setup(){
   sensores.addSensor(TYPE_VL6180X, "Frontal derecho", 0x51, ENABLE_SENSOR_FRONTAL_DERECHA);
   sensores.addSensor(TYPE_VL6180X, "Frontal izquierdo", 0x52, ENABLE_SENSOR_FRONTAL_IZQUIERDA);
   sensores.addSensor(TYPE_VL6180X, "Diagonal derecho", 0x53, ENABLE_SENSOR_DIAGONAL_DERECHA);
+}
 
+void setupEncoders(){
+  encoderLeft = new Encoder(LEFT_ENCODER_A_PIN, LEFT_ENCODER_B_PIN, &doEncoderLeft);
+  encoderRight = new Encoder(RIGHT_ENCODER_A_PIN, RIGHT_ENCODER_B_PIN, &doEncoderRight);
+}
+
+void setupMotores(){
   pinesMotores.leftForward = LEFT_MOTOR_FWD_PIN;
   pinesMotores.leftReverse = LEFT_MOTOR_REV_PIN;
   pinesMotores.rightForward = RIGHT_MOTOR_FWD_PIN;
@@ -42,28 +64,13 @@ void setup(){
   pinMode(pinesMotores.rightForward, OUTPUT);
   pinMode(pinesMotores.rightReverse, OUTPUT);
 
-  // encoderLeft = new Encoder(LEFT_ENCODER_A_PIN, LEFT_ENCODER_B_PIN, &doEncoderLeft);
-  // encoderRight = new Encoder(RIGHT_ENCODER_A_PIN, RIGHT_ENCODER_B_PIN, &doEncoderRight);
-
-  // motores = new Motores(TESTEO, pinesMotores, NULL, encoderLeft, encoderRight);  
+  motores = new Motores(TESTEO, pinesMotores, NULL, encoderLeft, encoderRight);  
 }
 
-void loop(){
-
-  // testSensores(&sensores);
-
-  testBasicoMotores(pinesMotores);
-
-  // testEncoders(encoderRight, encoderLeft);
-
-
-  delay(1000);
+void doEncoderLeft(){
+  encoderLeft->signalReceived();
 }
 
-// void doEncoderLeft(){
-//   encoderLeft->signalReceived();
-// }
-
-// void doEncoderRight(){
-//   encoderRight->signalReceived();
-// }
+void doEncoderRight(){
+  encoderRight->signalReceived();
+}
