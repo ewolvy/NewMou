@@ -27,11 +27,11 @@
   #define FRECUENCIA_PWM 31250  //frecuencia de los pwm del arduino nano
   #define RESOLUCION_N_BITS_PWM 8
 
-  #define LEFT_MOTOR_REV_PIN 26
-  #define LEFT_MOTOR_FWD_PIN 27
+  #define LEFT_MOTOR_REV_PIN 25 // PIN 26 35 y 33 NO FUNCIONA COMO SALIDA
+  #define LEFT_MOTOR_FWD_PIN 12
 
-  #define RIGHT_MOTOR_REV_PIN 25
-  #define RIGHT_MOTOR_FWD_PIN 12
+  #define RIGHT_MOTOR_REV_PIN 16
+  #define RIGHT_MOTOR_FWD_PIN 27
 
   #define LEFT_MOTOR_REV_CH 0
   #define LEFT_MOTOR_FWD_CH 1

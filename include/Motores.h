@@ -12,6 +12,7 @@ los motores, un puntero al objeto de sensores y dos punteros para los dos encode
 
   struct PinesMotores{
     uint8_t leftForward, leftReverse, rightForward, rightReverse;
+    uint8_t lfChannel, lrChannel, rfChannel, rrChannel;
   };
 
   class Motores{

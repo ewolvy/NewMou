@@ -28,6 +28,7 @@ void loop(){
   // testSensores(&sensores);
   // testBasicoMotores(&pinesMotores);
   // testEncoders(encoderRight, encoderLeft);
+  testPWMMotores(&pinesMotores);
 
   delay(1000);
 }
@@ -59,10 +60,29 @@ void setupMotores(){
   pinesMotores.rightForward = RIGHT_MOTOR_FWD_PIN;
   pinesMotores.rightReverse = RIGHT_MOTOR_REV_PIN;
 
+  pinesMotores.lfChannel = LEFT_MOTOR_FWD_CH;
+  pinesMotores.lrChannel = LEFT_MOTOR_REV_CH;
+  pinesMotores.rfChannel = RIGHT_MOTOR_FWD_CH;
+  pinesMotores.rrChannel = RIGHT_MOTOR_REV_CH;
+
   pinMode(pinesMotores.leftForward, OUTPUT);
   pinMode(pinesMotores.leftReverse, OUTPUT);
   pinMode(pinesMotores.rightForward, OUTPUT);
   pinMode(pinesMotores.rightReverse, OUTPUT);
+
+  digitalWrite(pinesMotores.leftForward, 0);
+  digitalWrite(pinesMotores.leftReverse, 0);
+  digitalWrite(pinesMotores.rightForward, 0);
+  digitalWrite(pinesMotores.rightReverse, 0);
+  
+  ledcSetup(pinesMotores.lfChannel, 500, 8);
+  ledcAttachPin(pinesMotores.leftForward, pinesMotores.lfChannel);
+  ledcSetup(pinesMotores.lrChannel, 500, 8);
+  ledcAttachPin(pinesMotores.leftReverse, pinesMotores.lrChannel);
+  ledcSetup(pinesMotores.rfChannel, 500, 8);
+  ledcAttachPin(pinesMotores.rightForward, pinesMotores.rfChannel);
+  ledcSetup(pinesMotores.rrChannel, 500, 8);
+  ledcAttachPin(pinesMotores.rightReverse, pinesMotores.rrChannel);
 
   motores = new Motores(TESTEO, pinesMotores, NULL, encoderLeft, encoderRight);  
 }
