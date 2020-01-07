@@ -25,10 +25,12 @@ void setup(){
 
 void loop(){
 
-  // testSensores(&sensores);
+  testSensores(&sensores);
   // testBasicoMotores(&pinesMotores);
-  // testEncoders(encoderRight, encoderLeft);
+  testEncoders(encoderRight, encoderLeft);
   testPWMMotores(&pinesMotores);
+  testEncoders(encoderRight, encoderLeft);
+  // testAnalogInput(36);
 
   delay(1000);
 }

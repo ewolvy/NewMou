@@ -6,4 +6,5 @@
   void testSensores(Sensores *sensores);
   void testEncoders(Encoder *encoderRight, Encoder *encoderLeft);
   void testPWMMotores(PinesMotores *pinesMotores);
+  void testAnalogInput(uint8_t pin);
 #endif

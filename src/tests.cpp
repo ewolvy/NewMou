@@ -105,3 +105,7 @@ void testPWMMotores(PinesMotores *pinesMotores){
   ledcWrite(pinesMotores->rrChannel, 0);
   delay(1000);  
 }
+
+void testAnalogInput(uint8_t pin){
+  Serial.println(analogRead(pin));
+}
