@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <Wire.h>
 #include "tests.h"
 #include "Motores.h"
 
@@ -45,6 +46,31 @@ void testSensores(Sensores *sensores){
     Serial.println(sensores->getDistance("Lateral derecho"));
   }
   Serial.println();
+}
+
+void testIMU(uint8_t MPU){
+  int16_t AcX, AcY, AcZ, GyX, GyY, GyZ;
+  Wire.beginTransmission(MPU);
+  Wire.write(0x3B);  
+  Wire.endTransmission(false);
+  Wire.requestFrom(MPU,12,true);  
+  AcX=Wire.read()<<8|Wire.read();    
+  AcY=Wire.read()<<8|Wire.read();  
+  AcZ=Wire.read()<<8|Wire.read();  
+  GyX=Wire.read()<<8|Wire.read();  
+  GyY=Wire.read()<<8|Wire.read();  
+  GyZ=Wire.read()<<8|Wire.read();  
+  
+  Serial.print("Accelerometer: ");
+  Serial.print("X = "); Serial.print(AcX);
+  Serial.print(" | Y = "); Serial.print(AcY);
+  Serial.print(" | Z = "); Serial.println(AcZ); 
+  
+  Serial.print("Gyroscope: ");
+  Serial.print("X = "); Serial.print(GyX);
+  Serial.print(" | Y = "); Serial.print(GyY);
+  Serial.print(" | Z = "); Serial.println(GyZ);
+  Serial.println(" ");
 }
 
 void testEncoders(Encoder *encoderRight, Encoder *encoderLeft){

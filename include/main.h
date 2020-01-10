@@ -7,8 +7,7 @@
   void setupSensores();
   void setupEncoders();
   void setupMotores();
-  void testSensores();
-  void testEncoders();
+  void setupIMU();
   void doEncoderLeft();
   void doEncoderRight();
 #endif

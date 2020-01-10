@@ -19,19 +19,21 @@ void setup(){
   Serial.begin(BAUD_RATE);
 
   setupSensores();
+  setupIMU();
   setupEncoders();
   setupMotores();
 }
 
 void loop(){
 
-  testSensores(&sensores);
+  // testSensores(&sensores);
   // testBasicoMotores(&pinesMotores);
-  testEncoders(encoderRight, encoderLeft);
-  testPWMMotores(&pinesMotores);
-  testEncoders(encoderRight, encoderLeft);
+  // testEncoders(encoderRight, encoderLeft);
+  // testPWMMotores(&pinesMotores);
+  // testEncoders(encoderRight, encoderLeft);
   // testAnalogInput(36);
-
+  // testIMU(0x68);
+  
   delay(1000);
 }
 
@@ -49,6 +51,13 @@ void setupSensores(){
   sensores.addSensor(TYPE_VL6180X, "Frontal derecho", 0x51, ENABLE_SENSOR_FRONTAL_DERECHA);
   sensores.addSensor(TYPE_VL6180X, "Frontal izquierdo", 0x52, ENABLE_SENSOR_FRONTAL_IZQUIERDA);
   sensores.addSensor(TYPE_VL6180X, "Diagonal derecho", 0x53, ENABLE_SENSOR_DIAGONAL_DERECHA);
+}
+
+void setupIMU(){
+  Wire.beginTransmission(0x68);
+  Wire.write(0x6B); 
+  Wire.write(0);    
+  Wire.endTransmission(true);
 }
 
 void setupEncoders(){
