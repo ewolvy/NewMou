@@ -19,9 +19,9 @@
  */  
   #define BAUD_RATE 9600  // Serial baud rate
 
-  #define LEFT_ENCODER_A_PIN 17  //este es el que genera la interrupción
-  #define LEFT_ENCODER_B_PIN 4 
-  #define RIGHT_ENCODER_A_PIN 5  //este es el que genera la interrupción
+  #define LEFT_ENCODER_A_PIN 37  //este es el que genera la interrupción
+  #define LEFT_ENCODER_B_PIN 4
+  #define RIGHT_ENCODER_A_PIN 39  //este es el que genera la interrupción
   #define RIGHT_ENCODER_B_PIN 15
   
   #define FRECUENCIA_PWM 31250  //frecuencia de los pwm del arduino nano

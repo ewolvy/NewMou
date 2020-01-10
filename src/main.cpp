@@ -28,7 +28,7 @@ void loop(){
 
   // testSensores(&sensores);
   // testBasicoMotores(&pinesMotores);
-  // testEncoders(encoderRight, encoderLeft);
+  testEncoders(encoderRight, encoderLeft);
   // testPWMMotores(&pinesMotores);
   // testEncoders(encoderRight, encoderLeft);
   // testAnalogInput(36);
