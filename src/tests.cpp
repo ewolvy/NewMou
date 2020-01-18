@@ -2,6 +2,7 @@
 #include <Wire.h>
 #include "tests.h"
 #include "Motores.h"
+#include "config.h"
 
 void testBasicoMotores(PinesMotores *pinesMotores){
   // Poner ambos motores hacia alante
@@ -33,17 +34,21 @@ void testBasicoMotores(PinesMotores *pinesMotores){
 }
 
 void testSensores(Sensores *sensores){
-  if (sensores->getVL6180XSensor("Lateral izquierdo") != NULL){
-    Serial.println(sensores->getDistance("Lateral izquierdo"));
+  if (sensores->getVL6180XSensor(NAME_SENSOR_DIAGONAL_DERECHA) != NULL){
+    Serial.print("Diagonal derecha: ");
+    Serial.println(sensores->getDistance(NAME_SENSOR_DIAGONAL_DERECHA));
   }
-  if (sensores->getVL6180XSensor("Frontal derecho") != NULL){
-    Serial.println(sensores->getDistance("Frontal derecho"));
+  if (sensores->getVL6180XSensor(NAME_SENSOR_DIAGONAL_IZQUIERDA) != NULL){
+    Serial.print("Diagonal izquierda: ");
+    Serial.println(sensores->getDistance(NAME_SENSOR_DIAGONAL_IZQUIERDA));
   }
-  if (sensores->getVL6180XSensor("Frontal izquierdo") != NULL){
-    Serial.println(sensores->getDistance("Frontal izquierdo"));
+  if (sensores->getVL6180XSensor(NAME_SENSOR_FRONTAL_DERECHA) != NULL){
+    Serial.print("Frontal derecha: ");
+    Serial.println(sensores->getDistance(NAME_SENSOR_FRONTAL_DERECHA));
   }
-  if (sensores->getVL6180XSensor("Lateral derecho") != NULL){
-    Serial.println(sensores->getDistance("Lateral derecho"));
+  if (sensores->getVL6180XSensor(NAME_SENSOR_FRONTAL_IZQUIERDA) != NULL){
+    Serial.print("Frontal izquierda: ");
+    Serial.println(sensores->getDistance(NAME_SENSOR_FRONTAL_IZQUIERDA));
   }
   Serial.println();
 }
@@ -53,7 +58,7 @@ void testIMU(uint8_t MPU){
   Wire.beginTransmission(MPU);
   Wire.write(0x3B);  
   Wire.endTransmission(false);
-  Wire.requestFrom(MPU,12,true);  
+  Wire.requestFrom(MPU,12, true);  
   AcX=Wire.read()<<8|Wire.read();    
   AcY=Wire.read()<<8|Wire.read();  
   AcZ=Wire.read()<<8|Wire.read();  

@@ -26,31 +26,35 @@ void setup(){
 
 void loop(){
 
-  // testSensores(&sensores);
+  testSensores(&sensores);
   // testBasicoMotores(&pinesMotores);
-  testEncoders(encoderRight, encoderLeft);
+  // testEncoders(encoderRight, encoderLeft);
   // testPWMMotores(&pinesMotores);
   // testEncoders(encoderRight, encoderLeft);
   // testAnalogInput(36);
-  // testIMU(0x68);
+  testIMU(ADDR_IMU);
   
   delay(1000);
 }
 
 void setupSensores(){
   pinMode(ENABLE_SENSOR_FRONTAL_DERECHA, OUTPUT);
-  pinMode(ENABLE_SENSOR_FRONTAL_IZQUIERDA, OUTPUT);
+  pinMode(ENABLE_SENSOR_DIAGONAL_IZQUIERDA, OUTPUT);
   pinMode(ENABLE_SENSOR_DIAGONAL_DERECHA, OUTPUT);
   digitalWrite(ENABLE_SENSOR_FRONTAL_DERECHA, LOW);
-  digitalWrite(ENABLE_SENSOR_FRONTAL_IZQUIERDA, LOW);
+  digitalWrite(ENABLE_SENSOR_DIAGONAL_IZQUIERDA, LOW);
   digitalWrite(ENABLE_SENSOR_DIAGONAL_DERECHA, LOW);
 
   Wire.begin();
 
-  sensores.addSensor(TYPE_VL6180X, "Diagonal izquierdo", 0x50, 0);
-  sensores.addSensor(TYPE_VL6180X, "Frontal derecho", 0x51, ENABLE_SENSOR_FRONTAL_DERECHA);
-  sensores.addSensor(TYPE_VL6180X, "Frontal izquierdo", 0x52, ENABLE_SENSOR_FRONTAL_IZQUIERDA);
-  sensores.addSensor(TYPE_VL6180X, "Diagonal derecho", 0x53, ENABLE_SENSOR_DIAGONAL_DERECHA);
+  sensores.addSensor(TYPE_VL6180X, NAME_SENSOR_FRONTAL_IZQUIERDA,
+                     ADDR_SENSOR_FRONTAL_IZQUIERDA, 0);
+  sensores.addSensor(TYPE_VL6180X, NAME_SENSOR_FRONTAL_DERECHA,
+                     ADDR_SENSOR_FRONTAL_DERECHA, ENABLE_SENSOR_FRONTAL_DERECHA);
+  sensores.addSensor(TYPE_VL6180X, NAME_SENSOR_DIAGONAL_IZQUIERDA,
+                     ADDR_SENSOR_DIAGONAL_IZQUIERDA, ENABLE_SENSOR_DIAGONAL_IZQUIERDA);
+  sensores.addSensor(TYPE_VL6180X, NAME_SENSOR_DIAGONAL_DERECHA,
+                     ADDR_SENSOR_DIAGONAL_DERECHA, ENABLE_SENSOR_DIAGONAL_DERECHA);
 }
 
 void setupIMU(){
