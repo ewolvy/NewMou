@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "Motores.h"
 #include "Sensores.h"
 #include "Encoder.h"
@@ -98,8 +99,8 @@ void Motores::avanza (byte casillas){
     case VUELTA_A_CASA:
       break;
     case TESTEO:
-      moveLeftMotor(70); //70
-      moveRightMotor(70); //55
+      ledcWrite(myPines.lfChannel, 40);
+      ledcWrite(myPines.lrChannel, 40);
       delay(775 * casillas);
       fullStop (); 
       delay (500);
