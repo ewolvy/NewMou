@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "Motores.h"
 #include "Sensores.h"
 #include "Encoder.h"
@@ -22,31 +23,39 @@ Motores::Motores(byte mode,
 }
 
 void Motores::moveLeftMotor (int speed){
-  if (speed == 0) {
-    // ledcWrite(myPines.leftReverse, 0);
-    ledcWrite(myPines.leftForward, HIGH);  
-  } else {
-    // ledcWrite(myPines.leftReverse, 0);
-    ledcWrite(myPines.leftForward, 255 - speed);
+  if (speed > MAX_PWM_SPEED){
+    speed = MAX_PWM_SPEED;
+  }else if (speed < (0 - MAX_PWM_SPEED)){
+    speed = MAX_PWM_SPEED;
   }
-  Serial.print("Pin izquierdo adelante: ");
-  Serial.println(myPines.leftForward);
-  Serial.print("Pin izquierdo atrás: ");
-  Serial.println(myPines.leftReverse);
+  if (speed == 0) {
+    ledcWrite(myPines.lfChannel, LOW);
+    ledcWrite(myPines.lrChannel, LOW);
+  } else if (speed > 0) {
+    ledcWrite(myPines.lfChannel, speed);
+    ledcWrite(myPines.lrChannel, LOW);
+  } else {
+    ledcWrite(myPines.lfChannel, LOW);
+    ledcWrite(myPines.lrChannel, 0 - speed);
+  }
 }
 
 void Motores::moveRightMotor (int speed){
-  if (speed == 0){
-    // ledcWrite(myPines.rightReverse, 0);
-    ledcWrite(myPines.rightForward, HIGH);
-  } else {
-    // ledcWrite(myPines.rightReverse, 0);
-    ledcWrite(myPines.rightForward, 255 - speed);
+  if (speed > MAX_PWM_SPEED){
+    speed = MAX_PWM_SPEED;
+  }else if (speed < (0 - MAX_PWM_SPEED)){
+    speed = MAX_PWM_SPEED;
   }
-  Serial.print("Pin derecho adelante: ");
-  Serial.println(myPines.rightForward);
-  Serial.print("Pin derecho atrás: ");
-  Serial.println(myPines.rightReverse);
+  if (speed == 0) {
+    ledcWrite(myPines.rfChannel, LOW);
+    ledcWrite(myPines.rrChannel, LOW);
+  } else if (speed > 0) {
+    ledcWrite(myPines.rfChannel, speed);
+    ledcWrite(myPines.rrChannel, LOW);
+  } else {
+    ledcWrite(myPines.rfChannel, LOW);
+    ledcWrite(myPines.rrChannel, 0 - speed);
+  }
 }
 
 void Motores::resetToZero(){
@@ -98,8 +107,8 @@ void Motores::avanza (byte casillas){
     case VUELTA_A_CASA:
       break;
     case TESTEO:
-      moveLeftMotor(70); //70
-      moveRightMotor(70); //55
+      ledcWrite(myPines.lfChannel, 40);
+      ledcWrite(myPines.lrChannel, 40);
       delay(775 * casillas);
       fullStop (); 
       delay (500);
@@ -117,7 +126,7 @@ void Motores::avanza (byte casillas){
         //pensamientos para control del angulo en rectas
         //en rectas apuntaremos a 2/3 del final de la recta(s), una vez ahí nuestro alfaobjetivo será 0
         //pensamientos para control del angulo en curvas
-        //se puede ir incrementan errorAlpha en las cuvas para tener una aceleración angular controlada
+        //se puede ir incrementa n errorAlpha en las cuvas para tener una aceleración angular controlada
         //esta aceleración puede ser inversamente proporcional a la velocidad que llevamos en ese momento, por lo que podemos no tener una aceleración lineal
         // hasta que whereami_a+ errorAlpha sean igual o superior a alphaObjetivo, en ese momento ir a buscar el alpha objetivo, que este será angulo entre el vector del coche y el vector que forma coche con punto de salida de la curva
         

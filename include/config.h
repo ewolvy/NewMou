@@ -3,8 +3,6 @@
 
   //definicion del hardware tanto pines y dimensiones
 
-  // #define ENABLE_SENSOR_LATERAL_DERECHO 19
-  // #define ENABLE_SENSOR_LATERAL_IZQUIERDA 27
   #define ENABLE_SENSOR_DIAGONAL_DERECHA 13
   #define ENABLE_SENSOR_DIAGONAL_IZQUIERDA 14
   #define ENABLE_SENSOR_FRONTAL_DERECHA 18
@@ -25,11 +23,7 @@
 
   #define SENSOR_SDA 21 
   #define SENSOR_SCL 22
-/*
-  #define OLED_SDA 4    // For TTGo ESP32 LoRa-OLED
-  #define OLED_SCL 15  // Hardware I2C does NOT work!  RMB
-  #define OLED_RST 16
- */  
+
   #define BAUD_RATE 9600  // Serial baud rate
 
   #define LEFT_ENCODER_A_PIN 37  //este es el que genera la interrupción
@@ -38,7 +32,8 @@
   #define RIGHT_ENCODER_B_PIN 15
   
   #define FRECUENCIA_PWM 31250  //frecuencia de los pwm del arduino nano
-  #define RESOLUCION_N_BITS_PWM 8
+  #define RESOLUCION_N_BITS_PWM 8   // CAMBIAR A LA VEZ QUE MAX_PWM_SPEED
+  #define MAX_PWM_SPEED 255         // CAMBIAR A LA VEZ QUE RESOLUCION_N_BITS_PWM
 
   #define LEFT_MOTOR_REV_PIN 25 // PIN 26 35 y 33 NO FUNCIONA COMO SALIDA
   #define LEFT_MOTOR_FWD_PIN 12
@@ -50,6 +45,7 @@
   #define LEFT_MOTOR_FWD_CH 1
   #define RIGHT_MOTOR_REV_CH 2
   #define RIGHT_MOTOR_FWD_CH 3
+
   #define AXIS_DISTANCE 40.50  // En milimetros
   #define PULSES_TO_MM 0.073408  // es la relacion de pulsos del encoder y mm recorridos viene de: (PI * wheelDiameter) / (wheelRatio)
 

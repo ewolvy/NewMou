@@ -6,17 +6,17 @@
 #include "Sensores.h"
 #include "Encoder.h"
 #include "Motores.h"
-// #include "BluetoothSerial.h"
+#include "BluetoothSerial.h"
 
-// BluetoothSerial BTSerial;
+BluetoothSerial BTSerial;
 Sensores sensores;
 Encoder *encoderLeft, *encoderRight;
 Motores *motores;
 PinesMotores pinesMotores;
 
 void setup(){
-  // BTSerial.begin("Mousito01BT");
-  Serial.begin(BAUD_RATE);
+  BTSerial.begin("Mousito01BT");
+  // Serial.begin(BAUD_RATE);
 
   setupSensores();
   setupIMU();
@@ -26,14 +26,16 @@ void setup(){
 
 void loop(){
 
-  testSensores(&sensores);
-  // testBasicoMotores(&pinesMotores);
-  // testEncoders(encoderRight, encoderLeft);
-  // testPWMMotores(&pinesMotores);
-  // testEncoders(encoderRight, encoderLeft);
-  // testAnalogInput(36);
-  testIMU(ADDR_IMU);
+  // testSensores(&sensores, &BTSerial);
+  // testBasicoMotores(&pinesMotores, &BTSerial);
+  // testEncoders(encoderRight, encoderLeft, &BTSerial);
+  // testPWMMotores(&pinesMotores, &BTSerial);
+  testEncoders(encoderRight, encoderLeft, &BTSerial);
+  // testAnalogInput(36, &BTSerial);
+  // testIMU(ADDR_IMU, &BTSerial);
+  // motores->avanza(1);
   
+    
   delay(1000);
 }
 
@@ -99,7 +101,8 @@ void setupMotores(){
   ledcSetup(pinesMotores.rrChannel, 500, 8);
   ledcAttachPin(pinesMotores.rightReverse, pinesMotores.rrChannel);
 
-  motores = new Motores(TESTEO, pinesMotores, NULL, encoderLeft, encoderRight);  
+  motores = new Motores(TESTEO, pinesMotores, NULL, encoderLeft, encoderRight); 
+
 }
 
 void doEncoderLeft(){
