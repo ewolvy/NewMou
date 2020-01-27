@@ -9,5 +9,5 @@
   void testEncoders(Encoder *encoderRight, Encoder *encoderLeft, BluetoothSerial *BTSerial );
   void testPWMMotores(PinesMotores *pinesMotores, BluetoothSerial *BTSerial );
   void testAnalogInput(uint8_t pin, BluetoothSerial *BTSerial );
-  void testavanza1(uint8_t MPU, Sensores *sensores, Encoder *encoderRight, Encoder *encoderLeft, PinesMotores *pinesMotores, BluetoothSerial *BTSerial ){
+  void testAvanza1(uint8_t MPU, Sensores *sensores, Encoder *encoderRight, Encoder *encoderLeft, PinesMotores *pinesMotores, BluetoothSerial *BTSerial ){
 #endif

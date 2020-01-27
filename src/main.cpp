@@ -33,7 +33,7 @@ void loop(){
   testEncoders(encoderRight, encoderLeft, &BTSerial);
   // testAnalogInput(36, &BTSerial);
   // testIMU(ADDR_IMU, &BTSerial);
-  // motores->avanza(1);
+  // testAvanza1(ADDR_IMU, &sensores, encoderRight, encoderLeft, &pinesMotores, &BTSerial);
   
     
   delay(1000);

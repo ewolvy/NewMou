@@ -142,7 +142,7 @@ void testAnalogInput(uint8_t pin, BluetoothSerial *BTSerial ){
   BTSerial->println(analogRead(pin));
 }
 
-void testavanza1(uint8_t MPU, Sensores *sensores, Encoder *encoderRight, Encoder *encoderLeft, PinesMotores *pinesMotores, BluetoothSerial *BTSerial ){
+void testAvanza1(uint8_t MPU, Sensores *sensores, Encoder *encoderRight, Encoder *encoderLeft, PinesMotores *pinesMotores, BluetoothSerial *BTSerial ){
   BTSerial->println("avanza1");
   ledcWrite(pinesMotores->lfChannel, 64);
   ledcWrite(pinesMotores->rfChannel, 64);
