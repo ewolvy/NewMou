@@ -23,10 +23,12 @@ Motores::Motores(byte mode,
 }
 
 void Motores::moveLeftMotor (int speed){
+  Serial.print("speed Left: ");
+  Serial.println(speed);
   if (speed > MAX_PWM_SPEED){
     speed = MAX_PWM_SPEED;
   }else if (speed < (0 - MAX_PWM_SPEED)){
-    speed = MAX_PWM_SPEED;
+    speed = 0 - MAX_PWM_SPEED;
   }
   if (speed == 0) {
     ledcWrite(myPines.lfChannel, LOW);
@@ -41,10 +43,12 @@ void Motores::moveLeftMotor (int speed){
 }
 
 void Motores::moveRightMotor (int speed){
+  Serial.print("speed Right: ");
+  Serial.println(speed);
   if (speed > MAX_PWM_SPEED){
     speed = MAX_PWM_SPEED;
   }else if (speed < (0 - MAX_PWM_SPEED)){
-    speed = MAX_PWM_SPEED;
+    speed = 0 - MAX_PWM_SPEED;
   }
   if (speed == 0) {
     ledcWrite(myPines.rfChannel, LOW);
@@ -121,6 +125,11 @@ void Motores::avanza (byte casillas){
       float errorAlphaAcumulado = 0.0;
       float PIDSpeed;
       float PIDAngularPosition;
+
+      myY = 0.0;
+      myX = 0.0;
+      myAlpha = 0.0;
+
       while (myY < DIMENSION_CELDA * casillas){
         
         //pensamientos para control del angulo en rectas
@@ -147,11 +156,16 @@ void Motores::avanza (byte casillas){
 
         moveLeftMotor(map((constrain((REC_SPEED  - PIDAngularPosition), 0, TOP_SPEED)),0 ,TOP_SPEED, 0,255));
         moveRightMotor(map((constrain((REC_SPEED  + PIDAngularPosition), 0, TOP_SPEED)),0 ,TOP_SPEED, 0,255));
-        Serial.print(myAlpha);
-        Serial.print(errorAlpha);
-        Serial.print(alphaObjetivo);
+        Serial.print("myAlpha ");
+        Serial.println(myAlpha);
+        Serial.print("errorAlpha ");
+        Serial.println(errorAlpha);
+        Serial.print("alphaObjetivo ");
+        Serial.println(alphaObjetivo);
+        Serial.print("PIDAngularPosition ");
         Serial.println(PIDAngularPosition);
-
+        Serial.print("myY ");
+        Serial.println(myY);
         actualiza();
       }
       break;
@@ -426,9 +440,7 @@ void Motores::gira180 (){
 }
 
 void Motores::fullStop (){
-  // moveLeftMotor(0); 
-  // moveRightMotor(0);
-  digitalWrite(myPines.leftForward, HIGH);
-  digitalWrite(myPines.rightForward, HIGH);
-  Serial.println("fullStop()");
+  moveLeftMotor(0); 
+  moveRightMotor(0);
+  // Serial.println("fullStop()");
 }

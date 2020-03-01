@@ -47,7 +47,7 @@
   #define RIGHT_MOTOR_FWD_CH 3
 
   #define AXIS_DISTANCE 40.50  // En milimetros
-  #define PULSES_TO_MM 0.073408  // es la relacion de pulsos del encoder y mm recorridos viene de: (PI * wheelDiameter) / (wheelRatio)
+  #define PULSES_TO_MM 1.0  // es la relacion de pulsos del encoder y mm recorridos viene de: (PI * wheelDiameter) / (wheelRatio)
 
   // definici�n de valores a ajustar PID y velocidades
   #define TOP_SPEED 700// sacada de hacer rodar a los motores sin carga con 2 baterias en serie 700mm/s

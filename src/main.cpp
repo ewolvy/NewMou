@@ -8,15 +8,15 @@
 #include "Motores.h"
 #include "BluetoothSerial.h"
 
-BluetoothSerial BTSerial;
-Sensores sensores;
-Encoder *encoderLeft, *encoderRight;
-Motores *motores;
-PinesMotores pinesMotores;
+BluetoothSerial myBTSerial;
+Sensores mySensores;
+Encoder *myEncoderLeft, *myEncoderRight;
+Motores *myMotores;
+PinesMotores myPinesMotores;
 
 void setup(){
-  BTSerial.begin("Mousito01BT");
-  // Serial.begin(BAUD_RATE);
+  myBTSerial.begin("Mousito01BT");
+  Serial.begin(BAUD_RATE);
 
   setupSensores();
   setupIMU();
@@ -26,17 +26,18 @@ void setup(){
 
 void loop(){
 
-  // testSensores(&sensores, &BTSerial);
-  // testBasicoMotores(&pinesMotores, &BTSerial);
-  // testEncoders(encoderRight, encoderLeft, &BTSerial);
-  // testPWMMotores(&pinesMotores, &BTSerial);
-  testEncoders(encoderRight, encoderLeft, &BTSerial);
-  // testAnalogInput(36, &BTSerial);
-  // testIMU(ADDR_IMU, &BTSerial);
-  // testAvanza1(ADDR_IMU, &sensores, encoderRight, encoderLeft, &pinesMotores, &BTSerial);
-  
+  // testSensores(&mySensores, &myBTSerial);
+  // testBasicoMotores(&myPinesMotores, &myBTSerial);
+  // testEncoders(myEncoderRight, myEncoderLeft, &myBTSerial);
+  // testPWMMotores(&myPinesMotores, &myBTSerial);
+  // testEncoders(myEncoderRight, myEncoderLeft, &myBTSerial);
+  // testAnalogInput(36, &myBTSerial);
+  // testIMU(ADDR_IMU, &myBTSerial);
+  // testAvanza1(ADDR_IMU, &mySensores, myEncoderRight, myEncoderLeft, &myPinesMotores, &myBTSerial);
+   myMotores->avanza(1);
+   myMotores->fullStop();
     
-  delay(1000);
+  delay(5000);
 }
 
 void setupSensores(){
@@ -49,13 +50,13 @@ void setupSensores(){
 
   Wire.begin();
 
-  sensores.addSensor(TYPE_VL6180X, NAME_SENSOR_FRONTAL_IZQUIERDA,
+  mySensores.addSensor(TYPE_VL6180X, NAME_SENSOR_FRONTAL_IZQUIERDA,
                      ADDR_SENSOR_FRONTAL_IZQUIERDA, 0);
-  sensores.addSensor(TYPE_VL6180X, NAME_SENSOR_FRONTAL_DERECHA,
+  mySensores.addSensor(TYPE_VL6180X, NAME_SENSOR_FRONTAL_DERECHA,
                      ADDR_SENSOR_FRONTAL_DERECHA, ENABLE_SENSOR_FRONTAL_DERECHA);
-  sensores.addSensor(TYPE_VL6180X, NAME_SENSOR_DIAGONAL_IZQUIERDA,
+  mySensores.addSensor(TYPE_VL6180X, NAME_SENSOR_DIAGONAL_IZQUIERDA,
                      ADDR_SENSOR_DIAGONAL_IZQUIERDA, ENABLE_SENSOR_DIAGONAL_IZQUIERDA);
-  sensores.addSensor(TYPE_VL6180X, NAME_SENSOR_DIAGONAL_DERECHA,
+  mySensores.addSensor(TYPE_VL6180X, NAME_SENSOR_DIAGONAL_DERECHA,
                      ADDR_SENSOR_DIAGONAL_DERECHA, ENABLE_SENSOR_DIAGONAL_DERECHA);
 }
 
@@ -67,48 +68,48 @@ void setupIMU(){
 }
 
 void setupEncoders(){
-  encoderLeft = new Encoder(LEFT_ENCODER_A_PIN, LEFT_ENCODER_B_PIN, &doEncoderLeft);
-  encoderRight = new Encoder(RIGHT_ENCODER_A_PIN, RIGHT_ENCODER_B_PIN, &doEncoderRight);
+  myEncoderLeft = new Encoder(LEFT_ENCODER_A_PIN, LEFT_ENCODER_B_PIN, &doEncoderLeft);
+  myEncoderRight = new Encoder(RIGHT_ENCODER_A_PIN, RIGHT_ENCODER_B_PIN, &doEncoderRight);
 }
 
 void setupMotores(){
-  pinesMotores.leftForward = LEFT_MOTOR_FWD_PIN;
-  pinesMotores.leftReverse = LEFT_MOTOR_REV_PIN;
-  pinesMotores.rightForward = RIGHT_MOTOR_FWD_PIN;
-  pinesMotores.rightReverse = RIGHT_MOTOR_REV_PIN;
+  myPinesMotores.leftForward = LEFT_MOTOR_FWD_PIN;
+  myPinesMotores.leftReverse = LEFT_MOTOR_REV_PIN;
+  myPinesMotores.rightForward = RIGHT_MOTOR_FWD_PIN;
+  myPinesMotores.rightReverse = RIGHT_MOTOR_REV_PIN;
 
-  pinesMotores.lfChannel = LEFT_MOTOR_FWD_CH;
-  pinesMotores.lrChannel = LEFT_MOTOR_REV_CH;
-  pinesMotores.rfChannel = RIGHT_MOTOR_FWD_CH;
-  pinesMotores.rrChannel = RIGHT_MOTOR_REV_CH;
+  myPinesMotores.lfChannel = LEFT_MOTOR_FWD_CH;
+  myPinesMotores.lrChannel = LEFT_MOTOR_REV_CH;
+  myPinesMotores.rfChannel = RIGHT_MOTOR_FWD_CH;
+  myPinesMotores.rrChannel = RIGHT_MOTOR_REV_CH;
 
-  pinMode(pinesMotores.leftForward, OUTPUT);
-  pinMode(pinesMotores.leftReverse, OUTPUT);
-  pinMode(pinesMotores.rightForward, OUTPUT);
-  pinMode(pinesMotores.rightReverse, OUTPUT);
+  pinMode(myPinesMotores.leftForward, OUTPUT);
+  pinMode(myPinesMotores.leftReverse, OUTPUT);
+  pinMode(myPinesMotores.rightForward, OUTPUT);
+  pinMode(myPinesMotores.rightReverse, OUTPUT);
 
-  digitalWrite(pinesMotores.leftForward, 0);
-  digitalWrite(pinesMotores.leftReverse, 0);
-  digitalWrite(pinesMotores.rightForward, 0);
-  digitalWrite(pinesMotores.rightReverse, 0);
+  digitalWrite(myPinesMotores.leftForward, 0);
+  digitalWrite(myPinesMotores.leftReverse, 0);
+  digitalWrite(myPinesMotores.rightForward, 0);
+  digitalWrite(myPinesMotores.rightReverse, 0);
   
-  ledcSetup(pinesMotores.lfChannel, 500, 8);
-  ledcAttachPin(pinesMotores.leftForward, pinesMotores.lfChannel);
-  ledcSetup(pinesMotores.lrChannel, 500, 8);
-  ledcAttachPin(pinesMotores.leftReverse, pinesMotores.lrChannel);
-  ledcSetup(pinesMotores.rfChannel, 500, 8);
-  ledcAttachPin(pinesMotores.rightForward, pinesMotores.rfChannel);
-  ledcSetup(pinesMotores.rrChannel, 500, 8);
-  ledcAttachPin(pinesMotores.rightReverse, pinesMotores.rrChannel);
+  ledcSetup(myPinesMotores.lfChannel, 500, 8);
+  ledcAttachPin(myPinesMotores.leftForward, myPinesMotores.lfChannel);
+  ledcSetup(myPinesMotores.lrChannel, 500, 8);
+  ledcAttachPin(myPinesMotores.leftReverse, myPinesMotores.lrChannel);
+  ledcSetup(myPinesMotores.rfChannel, 500, 8);
+  ledcAttachPin(myPinesMotores.rightForward, myPinesMotores.rfChannel);
+  ledcSetup(myPinesMotores.rrChannel, 500, 8);
+  ledcAttachPin(myPinesMotores.rightReverse, myPinesMotores.rrChannel);
 
-  motores = new Motores(TESTEO, pinesMotores, NULL, encoderLeft, encoderRight); 
+  myMotores = new Motores(VICTOR, myPinesMotores, NULL, myEncoderLeft, myEncoderRight); 
 
 }
 
 void doEncoderLeft(){
-  encoderLeft->signalReceived();
+  myEncoderLeft->signalReceived();
 }
 
 void doEncoderRight(){
-  encoderRight->signalReceived();
+  myEncoderRight->signalReceived();
 }
