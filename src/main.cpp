@@ -9,7 +9,7 @@
 #include "BluetoothSerial.h"
 
 BluetoothSerial myBTSerial;
-Sensores mySensores;
+Sensores *mySensores;
 Encoder *myEncoderLeft, *myEncoderRight;
 Motores *myMotores;
 PinesMotores myPinesMotores;
@@ -26,7 +26,7 @@ void setup(){
 
 void loop(){
 
-  // testSensores(&mySensores, &myBTSerial);
+  testSensores(mySensores);
   // testBasicoMotores(&myPinesMotores, &myBTSerial);
   // testEncoders(myEncoderRight, myEncoderLeft, &myBTSerial);
   // testPWMMotores(&myPinesMotores, &myBTSerial);
@@ -34,10 +34,10 @@ void loop(){
   // testAnalogInput(36, &myBTSerial);
   // testIMU(ADDR_IMU, &myBTSerial);
   // testAvanza1(ADDR_IMU, &mySensores, myEncoderRight, myEncoderLeft, &myPinesMotores, &myBTSerial);
-   myMotores->avanza(1);
-   myMotores->fullStop();
+  //  myMotores->avanza(1);
+  //  myMotores->fullStop();
     
-  delay(5000);
+  delay(1000);
 }
 
 void setupSensores(){
@@ -50,14 +50,7 @@ void setupSensores(){
 
   Wire.begin();
 
-  mySensores.addSensor(TYPE_VL6180X, NAME_SENSOR_FRONTAL_IZQUIERDA,
-                     ADDR_SENSOR_FRONTAL_IZQUIERDA, 0);
-  mySensores.addSensor(TYPE_VL6180X, NAME_SENSOR_FRONTAL_DERECHA,
-                     ADDR_SENSOR_FRONTAL_DERECHA, ENABLE_SENSOR_FRONTAL_DERECHA);
-  mySensores.addSensor(TYPE_VL6180X, NAME_SENSOR_DIAGONAL_IZQUIERDA,
-                     ADDR_SENSOR_DIAGONAL_IZQUIERDA, ENABLE_SENSOR_DIAGONAL_IZQUIERDA);
-  mySensores.addSensor(TYPE_VL6180X, NAME_SENSOR_DIAGONAL_DERECHA,
-                     ADDR_SENSOR_DIAGONAL_DERECHA, ENABLE_SENSOR_DIAGONAL_DERECHA);
+  mySensores = new Sensores();
 }
 
 void setupIMU(){

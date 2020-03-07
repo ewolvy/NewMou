@@ -34,24 +34,13 @@ void testBasicoMotores(PinesMotores *pinesMotores, BluetoothSerial *BTSerial ){
   digitalWrite(pinesMotores->rightReverse, 0);
 }
 
-void testSensores(Sensores *sensores, BluetoothSerial *BTSerial ){
-  if (sensores->getVL6180XSensor(NAME_SENSOR_DIAGONAL_DERECHA) != NULL){
-    BTSerial->print("Diagonal derecha: ");
-    BTSerial->println(sensores->getDistance(NAME_SENSOR_DIAGONAL_DERECHA));
-  }
-  if (sensores->getVL6180XSensor(NAME_SENSOR_DIAGONAL_IZQUIERDA) != NULL){
-    BTSerial->print("Diagonal izquierda: ");
-    BTSerial->println(sensores->getDistance(NAME_SENSOR_DIAGONAL_IZQUIERDA));
-  }
-  if (sensores->getVL6180XSensor(NAME_SENSOR_FRONTAL_DERECHA) != NULL){
-    BTSerial->print("Frontal derecha: ");
-    BTSerial->println(sensores->getDistance(NAME_SENSOR_FRONTAL_DERECHA));
-  }
-  if (sensores->getVL6180XSensor(NAME_SENSOR_FRONTAL_IZQUIERDA) != NULL){
-    BTSerial->print("Frontal izquierda: ");
-    BTSerial->println(sensores->getDistance(NAME_SENSOR_FRONTAL_IZQUIERDA));
-  }
-  BTSerial->println();
+void testSensores(Sensores *sensores){
+  Serial.print("Pared izquierda: ");
+  Serial.println(sensores->hasLeftWall() ? "Sí" : "No");
+  Serial.print("Pared derecha: ");
+  Serial.println(sensores->hasRightWall() ? "Sí" : "No");
+  Serial.print("Pared frontal: ");
+  Serial.println(sensores->hasFrontWall() ? "Sí" : "No");
 }
 
 void testIMU(uint8_t MPU, BluetoothSerial *BTSerial ){

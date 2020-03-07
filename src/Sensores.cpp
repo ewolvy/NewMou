@@ -1,33 +1,35 @@
 #include "Sensores.h"
+#include "config.h"
 #include <SPI.h>
 #include "VL6180X.h"
 
-
-boolean Sensores::addSensor(const uint8_t type, const char name[], const uint8_t address, const uint8_t pin){
-  switch(type){
-
-    case TYPE_VL6180X:
-      if (vl6180x_count == MAX_SENSORES - 1) return false;
-      vl6180x[vl6180x_count] = VL6180X();
-      strcpy(vl6180x_names[vl6180x_count], name);
-      initializeVL6180X(&vl6180x[vl6180x_count], address, pin);
-      vl6180x_count++;
-      break;
-  }
-  return true;
+Sensores::Sensores(){
+  initializeVL6180X(&sensores[SENSOR_FRONTAL_IZQUIERDA],
+                    ADDR_SENSOR_FRONTAL_IZQUIERDA,
+                    0);
+  initializeVL6180X(&sensores[SENSOR_DIAGONAL_DERECHA],
+                    ADDR_SENSOR_DIAGONAL_DERECHA,
+                    ENABLE_SENSOR_DIAGONAL_DERECHA);
+  initializeVL6180X(&sensores[SENSOR_DIAGONAL_IZQUIERDA],
+                    ADDR_SENSOR_DIAGONAL_IZQUIERDA,
+                    ENABLE_SENSOR_DIAGONAL_IZQUIERDA);
+  initializeVL6180X(&sensores[SENSOR_FRONTAL_DERECHA],
+                    ADDR_SENSOR_FRONTAL_DERECHA,
+                    ENABLE_SENSOR_FRONTAL_DERECHA);
 }
 
-VL6180X *Sensores::getVL6180XSensor(const char name[]){
-  uint8_t position = 0;
-  while (position < vl6180x_count){
-    if (strcmp(vl6180x_names[position], name) == 0){
-      return &vl6180x[position];
-    }
-    position++;
-  }
-  return NULL;
+boolean Sensores::hasLeftWall(){
+  return (getDistance(&sensores[SENSOR_DIAGONAL_IZQUIERDA]) < WALL_DIAGONAL_DISTANCE);
 }
 
+boolean Sensores::hasRightWall(){
+  return (getDistance(&sensores[SENSOR_DIAGONAL_DERECHA]) < WALL_DIAGONAL_DISTANCE);
+}
+
+boolean Sensores::hasFrontWall(){
+  return (getDistance(&sensores[SENSOR_FRONTAL_DERECHA]) < WALL_FRONT_DISTANCE &&
+          getDistance(&sensores[SENSOR_FRONTAL_DERECHA]) < WALL_FRONT_DISTANCE);
+}
 
 void Sensores::initializeVL6180X(VL6180X *sensor, const uint8_t address, const uint8_t pin){
   if (pin != 0){
@@ -41,22 +43,6 @@ void Sensores::initializeVL6180X(VL6180X *sensor, const uint8_t address, const u
   delay(DELAY_ARRANQUE_SENSOR);
 }
 
-uint16_t Sensores::getDistance(const char name[]){
-  VL6180X *sensor618;
-  switch(getType(name)){
-    case TYPE_VL6180X:
-      sensor618 = getVL6180XSensor(name);
-      return sensor618->readRangeSingleMillimeters();
-      break;
-  }
-  return 0;
-}
-
-uint8_t Sensores::getType(const char name[]){
-  uint8_t position = 0;
-  
-  for (position = 0; position < vl6180x_count; position++){
-    if (strcmp(vl6180x_names[position], name) == 0) return TYPE_VL6180X;
-  }
-  return TYPE_NONE;
+uint16_t Sensores::getDistance(VL6180X *sensor){
+  return sensor->readRangeSingleMillimeters();
 }

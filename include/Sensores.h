@@ -12,25 +12,29 @@ Una vez inicializado se puede solicitar la lectura con el método getDistance("n
 */
 #ifndef sensores_h
   #define sensores_h
-  #define MAX_SENSORES 5   // Número máximo de sensores de cada tipo
 
   #include "VL6180X.h"
   
-  // Definiciones para los tipos de sensores
-  #define TYPE_NONE 0
-  #define TYPE_VL6180X 1
+  // Definiciones de la clase
   #define DELAY_ARRANQUE_SENSOR 500
+  #define WALL_FRONT_DISTANCE 200.0
+  #define WALL_DIAGONAL_DISTANCE 120.0
+  #define TOTAL_SENSORES 4
+  #define SENSOR_DIAGONAL_DERECHA 0
+  #define SENSOR_DIAGONAL_IZQUIERDA 1
+  #define SENSOR_FRONTAL_DERECHA 2
+  #define SENSOR_FRONTAL_IZQUIERDA 3
 
   class Sensores{
     public:
-      boolean addSensor(const uint8_t type, const char *name, const uint8_t address, const uint8_t pin);
-      VL6180X *getVL6180XSensor(const char name[]);
-      uint16_t getDistance(const char name[]);
+      Sensores();
+      boolean hasLeftWall();
+      boolean hasRightWall();
+      boolean hasFrontWall();
+      uint16_t getDistance(VL6180X *sensor);
     private:
       void initializeVL6180X(VL6180X *sensor, const uint8_t address, const uint8_t pin);
       uint8_t getType(const char name[]);
-      VL6180X vl6180x[MAX_SENSORES];
-      uint8_t vl6180x_count = 0;
-      char vl6180x_names[10][20];
+      VL6180X sensores[TOTAL_SENSORES];
   };
 #endif

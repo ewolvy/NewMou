@@ -4,7 +4,7 @@
   #include <BluetoothSerial.h>
 
   void testBasicoMotores(PinesMotores *pinesMotores, BluetoothSerial *BTSerial );
-  void testSensores(Sensores *sensores, BluetoothSerial *BTSerial );
+  void testSensores(Sensores *sensores);
   void testIMU(uint8_t MPU, BluetoothSerial *BTSerial );
   void testEncoders(Encoder *encoderRight, Encoder *encoderLeft, BluetoothSerial *BTSerial );
   void testPWMMotores(PinesMotores *pinesMotores, BluetoothSerial *BTSerial );
