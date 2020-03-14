@@ -26,7 +26,7 @@ void setup(){
 
 void loop(){
 
-  testSensores(mySensores);
+  // testSensores(mySensores);
   // testBasicoMotores(&myPinesMotores, &myBTSerial);
   // testEncoders(myEncoderRight, myEncoderLeft, &myBTSerial);
   // testPWMMotores(&myPinesMotores, &myBTSerial);
@@ -36,7 +36,8 @@ void loop(){
   // testAvanza1(ADDR_IMU, &mySensores, myEncoderRight, myEncoderLeft, &myPinesMotores, &myBTSerial);
   //  myMotores->avanza(1);
   //  myMotores->fullStop();
-    
+  testEEPROM();
+
   delay(1000);
 }
 

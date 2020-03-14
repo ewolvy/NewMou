@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <Wire.h>
+#include <EEPROM.h>
 #include <BluetoothSerial.h>
 #include "tests.h"
 #include "Motores.h"
@@ -134,3 +135,29 @@ void testAnalogInput(uint8_t pin, BluetoothSerial *BTSerial ){
 void testAvanza1(uint8_t MPU, Sensores *sensores, Encoder *encoderRight, Encoder *encoderLeft, PinesMotores *pinesMotores, BluetoothSerial *BTSerial ){
   BTSerial->println("avanza1");
 }
+
+void testEEPROMwrite(){
+  long time = millis();
+  EEPROM.writeLong(0, time);
+  EEPROM.end();
+  // EEPROM.put(0x0, time);
+  Serial.println(time);
+}
+
+void testEEPROMread(){
+  long data;
+  EEPROM.begin(sizeof(data));
+  data = EEPROM.readLong(0);
+  Serial.println();
+  Serial.println(data);
+}
+
+void testEEPROM(){
+  testEEPROMread();
+  delay(1000);
+  testEEPROMwrite();
+  while(true){
+    yield();
+  }
+}
+
